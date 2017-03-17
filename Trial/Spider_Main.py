@@ -15,26 +15,25 @@ class SpiderMain(object):
         count = 1
         self.urls.add_new_url(root_url)
         while self.urls.has_new_url():
+            # noinspection PyBroadException
             try:
                 new_url = self.urls.get_new_url()
-                print 'count %d : %s'%(count, new_url)
+                print 'count %d : %s' % (count, new_url)
                 html_cont = self.downloader.download(new_url)
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
                 self.urls.add_new_urls(new_urls)
                 self.outputer.collect_data()
 
-                if count == 1000:
+                if count == 1:
                     break
-
-                count += 1
+                count = count + 1
             except:
                 print 'Craw failed'
 
         self.outputer.output_html()
 
 
-
 if __name__ == "__main__":
-    root_url = "http://baike.baidu.com/item/Python"
+    root_url = "http://baike.baidu.com/item/Java"
     obj_spider = SpiderMain()
     obj_spider.craw(root_url)

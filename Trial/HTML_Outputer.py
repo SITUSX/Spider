@@ -1,6 +1,29 @@
 class HTMLOutputer(object):
-    def collect_data(self):
-        pass
+    def __init__(self):
+        self.datas = []
+
+    def collect_data(self, data):
+        if data in None:
+            return
+        self.datas.append(data)
 
     def output_html(self):
-        pass
+        fout = open('output.html', 'w')
+
+        fout.write("<html>")
+        fout.write("<body>")
+        fout.write("<table>")
+
+        # default:ascii -> UTF-8
+        for data in self.datas:
+            fout.write("<tr>")
+            fout.write("<td>%s</td>" % data['url'])
+            fout.write("<td>%s</td>" % data['title'].encode('UTF-8'))
+            fout.write("<td>%s</td>" % data['summary'])
+            fout.write("</tr>")
+
+        fout.write("</table>")
+        fout.write("</body>")
+        fout.write("</html>")
+
+        fout.close()
