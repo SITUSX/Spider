@@ -22,9 +22,9 @@ class SpiderMain(object):
                 html_cont = self.downloader.download(new_url)
                 new_urls, new_data = self.parser.parse(new_url, html_cont)
                 self.urls.add_new_urls(new_urls)
-                self.outputer.collect_data()
+                self.outputer.collect_data(new_data)
 
-                if count == 1:
+                if count == 10:
                     break
                 count = count + 1
             except:
@@ -34,6 +34,6 @@ class SpiderMain(object):
 
 
 if __name__ == "__main__":
-    root_url = "http://baike.baidu.com/item/Java"
+    root_url = "http://baike.baidu.com/item/Python"
     obj_spider = SpiderMain()
     obj_spider.craw(root_url)

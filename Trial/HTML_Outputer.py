@@ -3,12 +3,17 @@ class HTMLOutputer(object):
         self.datas = []
 
     def collect_data(self, data):
-        if data in None:
+        if data is None:
             return
         self.datas.append(data)
 
     def output_html(self):
         fout = open('output.html', 'w')
+
+        # set UTF-8
+        fout.write("<head>")
+        fout.write('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />')
+        fout.write("</head>")
 
         fout.write("<html>")
         fout.write("<body>")
@@ -19,7 +24,7 @@ class HTMLOutputer(object):
             fout.write("<tr>")
             fout.write("<td>%s</td>" % data['url'])
             fout.write("<td>%s</td>" % data['title'].encode('UTF-8'))
-            fout.write("<td>%s</td>" % data['summary'])
+            fout.write("<td>%s</td>" % data['summary'].encode('UTF-8'))
             fout.write("</tr>")
 
         fout.write("</table>")

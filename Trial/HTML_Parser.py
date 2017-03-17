@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 class HTMLParser(object):
     def _get_new_urls(self, page_url, soup):
         new_urls = set()
-        links = soup.find_all('a', href=re.compile(r"/view/\d+\.htm"))
+        links = soup.find_all('a', href=re.compile(r""))
         for link in links:
             new_url = link['href']
             new_full_url = urlparse.urljoin(page_url, new_url)
@@ -15,7 +15,10 @@ class HTMLParser(object):
         return new_urls
 
     def _get_new_data(self, page_url, soup):
-        res_data = {'url': page_url}
+        res_data = {}
+
+        # url
+        res_data['url'] = page_url
 
         # <dd class="lemmaWgt-lemmaTitle-title"> <h1>Python</h1>
         title_node = soup.find('dd', class_="lemmaWgt-lemmaTitle-title").find("h1")
